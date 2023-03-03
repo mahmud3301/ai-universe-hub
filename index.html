@@ -31,15 +31,27 @@
 
     <!-- main section starts -->
     <main>
-      <section class="mt-11 p-5 h-[617px]">
+      <section class="mt-11 p-5">
         <div id="ai-container" class="mx-auto my-auto grid md:grid-cols-3 gap-3 grid-cols-1">
         </div>
       </section>
 
+      <!-- Modal section -->
+      <div id="modal-div">
+        <input type="checkbox" id="modal" class="modal-toggle" />
+<div class="modal">
+  <div class="modal-box w-11/12 max-w-5xl">
+    <div class="modal-action">
+      <label for="modal" class="btn btn-sm btn-circle btn-error text-white absolute right-5 top-5">✕</label>
+    </div>
+  </div>
+</div>
+      </div>
+
 
       <section>
         <div id="show-all" class="text-center hidden">
-          <div id="btn-show-all" class="btn btn-primary">Show All</div>
+          <div id="btn-show-all" class="btn btn-error rounded-lg text-white">Show All</div>
       </div>
       </section><br><br>
     </main>
