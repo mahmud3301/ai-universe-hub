@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ai Universe Hub</title>
+    
+<script src="https://kit.fontawesome.com/ce32527ea4.js" crossorigin="anonymous"></script>
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap');
+
+        *{
+            font-family: 'Work Sans', sans-serif;
+        }
+      </style>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <!-- header sec start -->
+    <header>
+        <h1 class="text-4xl mt-5 text-center">AI Universe Hub</h1>
+        <div class="w-full flex justify-center mt-7">
+            <button class="btn btn-error text-white rounded-lg">Sort By Date</button>
+        </div>
+    </header>
+    <!-- header sec end -->
+
+    <!-- main section starts -->
+    <main>
+      <section class="mt-11 p-5 h-[617px]">
+        <div id="ai-container" class="mx-auto my-auto grid md:grid-cols-3 gap-3 grid-cols-1">
+        </div>
+      </section>
+
+
+      <section>
+        <div id="show-all" class="text-center hidden">
+          <div id="btn-show-all" class="btn btn-primary">Show All</div>
+      </div>
+      </section><br><br>
+    </main>
+    <!-- main section ends -->
+
+    <script src="script/index.js"></script>
+</body>
+</html>
