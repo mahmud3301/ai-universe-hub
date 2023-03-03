@@ -26,7 +26,8 @@ const displayAi = (ais, limit) => {
                         <ol class="list-decimal pl-5">
                            <li>${ai.features[0]}</li>
                            <li>${ai.features[1]}</li>
-                           <li>${ai.features[2] ? ai.features[2] : "No features found"}</li
+                           <li>${ai.features[2] ? ai.features[2] : "No features found"}</li>
+                           <li>${ai.features[3] ? ai.features[3] : "No features found"}</li>
                        </ol>
                     </div><br><br>
                     <hr>
@@ -37,8 +38,7 @@ const displayAi = (ais, limit) => {
                        <img src="images/calender.png" alt="" class="w-5">
                        <span>${ai.published_in}</span>
                        </div>
-                       
-                       <label for="modal" class="btn border-0" style="background-color : #FEF7F7"><i class="fas fa-arrow-right text-error"></i></label>
+                       <label for="modal" class="btn border-0" style="background-color : #FEF7F7;" onclick="loadAiDetails('${ai.id}')"><i class="fas fa-arrow-right text-error"></i></label>
                     </div>
                   </div>
         `
@@ -47,12 +47,39 @@ const displayAi = (ais, limit) => {
 }
 
 
-const loadAiDetails = async (idAi) => {
+const loadAiDetails = async (id) => {
+    console.log(id);
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    displayAIDetails(data);
+    // const res = await fetch(url);
+    // const data = await res.json();
+    fetch(url).then(res => res.json()).then(data => displayAiDetails(data.data))
+    // displayAiDetails(data);
 };
+
+
+
+displayAiDetails = (data) =>{
+    const aiDetails = document.getElementById("aiDetails");
+    aiDetails.innerHTML+=``
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 loadAi(6);
