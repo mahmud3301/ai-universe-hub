@@ -50,10 +50,10 @@ const displayAi = (ais, limit) => {
 const loadAiDetails = async (id) => {
     console.log(id);
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
-    // const res = await fetch(url);
-    // const data = await res.json();
-    fetch(url).then(res => res.json()).then(data => displayAiDetails(data.data))
-    // displayAiDetails(data);
+    const res = await fetch(url);
+    const data = await res.json();
+    // fetch(url).then(res => res.json()).then(data => displayAiDetails(data.data))
+    displayAiDetails(data.data);
 };
 
 
