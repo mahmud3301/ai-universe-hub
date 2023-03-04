@@ -1,12 +1,3 @@
-const sortDataByDateBtn = () => {
-  fetch("https://openapi.programming-hero.com/api/ai/tools").then(res => res.json()).then(data => {
-    sortDataByDateBtn(data.data.tools)
-    function byDate(a, b) {
-      return new Date(a.published_in).valueOf() - new Date(b.published_in).valueOf()
-    }
-  })
-}
-
 const loadAi = async (limit) => {
   const url = `https://openapi.programming-hero.com/api/ai/tools`
   const res = await fetch(url);
@@ -104,7 +95,6 @@ const displayAiDetails = (data, id) => {
       <li>${features ? features[1].feature_name : "No Feature"}</li>
       <li>${features ? features[2].feature_name : "No Feature"}</li>
       <li>${features ? features[3].feature_name : "No Feature"}</li>
-      <li>${features ? features[4].feature_name : "No Feature"}</li>
       </div>
       <div class="p-5">
       <p class="text-xl font-bold">Integrations</p>
@@ -112,6 +102,7 @@ const displayAiDetails = (data, id) => {
       <li>${integrations ? (integrations[1] ? integrations[1] : "No Integrations") : "No Integrations"}</li>
       <li>${integrations ? (integrations[2] ? integrations[2] : "No Integrations") : "No Integrations"}</li>
       <li>${integrations ? (integrations[3] ? integrations[3] : "No Integrations") : "No Integrations"}</li>
+      <li>${integrations ? (integrations[4] ? integrations[4] : "No Integrations") : "No Integrations"}</li>
       </div>
       </div>
 
@@ -126,17 +117,35 @@ const displayAiDetails = (data, id) => {
     <button class="${data.accuracy.score ? 'block' : 'hidden'} bg-red-500 p-2 rounded-md w-fit h-fit text-white text-base absolute border-3 top-0 right-0"><span>${data.accuracy.score * 100 + "% "}Accuracy</span></button>
     <figure id="modalPhoto"><img src="${data.image_link[0] ? data.image_link[0] : "No Image"}" alt="" /></figure>
  </div>
-        <p class="text-center text-xl font-bold p-2">${input_output_examples ? input_output_examples[0].input : "No Input"}</p>
-        <p class="text-center ">${input_output_examples ? input_output_examples[0].output : "NO Output"}</p>
+        <p class="text-center text-xl font-bold p-2">${input_output_examples ? input_output_examples[0].input : "Can you give any example?"}</p>
+        <p class="text-center ">${input_output_examples ? input_output_examples[0].output : "No! Not Yet! Take a break!!!"}</p>
     </div>
 
     `;
 }
 
-loadAi(6);
 
+const sortBtn = document.getElementById('sort-by-date-btn');
+sortBtn.addEventListener('click', () => {
+  // document.getElementById('spinner').classList.remove('d-none');
+  const url = 'https://openapi.programming-hero.com/api/ai/tools';
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      // document.getElementById('spinner').classList.add('d-none');
+      let aiData = data.data.tools;
+      aiData.sort((a, b) => new Date(b.published_in) - new Date(a.published_in));
+      // sortData = aiData;
+      // isSort = true;
+      displayAi(aiData);
+    })
+});
+
+
+
+loadAi(6);
 
 document.getElementById("show-all").addEventListener('click', function () {
   loadAi();
   showAll.classList.add('hidden');
-})
+});
