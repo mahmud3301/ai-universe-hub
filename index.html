@@ -21,12 +21,17 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body>
+<body onload="toggleSpinner(true)">
+
   <!-- header sec start -->
   <header>
     <h1 class="text-4xl mt-5 text-center">AI Universe Hub</h1>
     <div class="w-full flex justify-center mt-7">
       <button class="btn btn-error text-white rounded-lg">Sort By Date</button>
+    </div>
+    <!-- spinner -->
+    <div class="w-full flex justify-center mt-7">
+      <button class="btn btn-square loading hidden justify-center align-center bg-base-100 border-0 text-error text-10xl font-bold" id="spinner"></button>
     </div>
   </header>
   <!-- header sec end -->
@@ -44,9 +49,9 @@
       <div class="modal">
         <div class="modal-box w-11/12 max-w-5xl">
           <div class="modal-action">
-            <label for="modal" class="btn btn-sm btn-circle btn-error text-white absolute right-0 top-0">✕</label>
+            <label for="modal" class="btn btn-sm btn-circle btn-error text-white absolute right-2 top-2">✕</label>
 
-            <div class="sm:grid grid-cols-2 justify-between p-10 gap-5">
+            <div class="sm:grid grid-cols-2 justify-between mt-5 p-10 gap-5">
               <div class="card card-compact w-full bg-base-100 shadow-xl bg-red-100" id="ai-body">
               </div>
               <div class="card card-compact w-full bg-base-100 shadow-xl" id="ai-body-2">

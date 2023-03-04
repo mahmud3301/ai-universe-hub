@@ -6,6 +6,16 @@ const loadAi = async (limit) => {
   // console.log(data.data.tools, limit);
 }
 
+// spinner
+const toggleSpinner = (isLoading) => {
+  const spinner = document.getElementById('spinner')
+  if (isLoading === true) {
+    spinner.classList.remove('hidden')
+  } else {
+    spinner.classList.add('hidden')
+  }
+}
+
 const showAll = document.getElementById('show-all');
 
 const displayAi = (ais, limit) => {
@@ -24,8 +34,8 @@ const displayAi = (ais, limit) => {
                     <h1 class="text-2xl font-bold mt-2">Features</h1><br>\
                     <div>
                         <ol class="list-decimal pl-5">
-                           <li>${ai.features[0]}</li>
-                           <li>${ai.features[1]}</li>
+                           <li>${ai.features[0] ? ai.features[0] : "No features found"}</li>
+                           <li>${ai.features[1] ? ai.features[1] : "No features found"}</li>
                            <li>${ai.features[2] ? ai.features[2] : "No features found"}</li>
                            <li>${ai.features[3] ? ai.features[3] : "No features found"}</li>
                        </ol>
@@ -43,6 +53,8 @@ const displayAi = (ais, limit) => {
                   </div>
         `
     aiContainer.appendChild(aiDiv);
+    // spinner off
+    toggleSpinner(false)
   });
 }
 
@@ -54,21 +66,23 @@ const loadAiDetails = async (id) => {
   const data = await res.json();
   // fetch(url).then(res => res.json()).then(data => displayAiDetails(data.data))
   displayAiDetails(data.data);
-  console.log(data.data);
+  // console.log(data.data);
 };
 
 
 
 const displayAiDetails = (data) => {
+  displayAiDetails.innerHTML = "";
   const aiBody = document.getElementById("ai-body")
+  const items = data.integrations?.map(item => `<li class="list-disc">${item}</>`).join('');
   aiBody.innerHTML = `
     <div class="card-body">
-                  <p class="text-left text-xl font-bold">${data.description}
+                  <p class="text-left text-xl font-bold">${data ? data.description : 'Description not found'}
                   <p>
                   <div class="grid grid-cols-3 ">
                     <div class="card w-24 h-28 bg-base-100 text-neutral-content">
                       <div class="card-body items-center text-center">
-                        <p class="text-center text-green-700 font-bold">${data.pricing[0]? data.pricing[0].price : "No Price"}</p>
+                        <p class="text-center text-green-700 font-bold">${data.pricing[0] ? data.pricing[0].price : "No Price"}</p>
                         <p class="text-center text-green-700 font-bold">${data.pricing[0] ? data.pricing[0].plan : "No Plan"}</p>
                       </div>
                     </div>
@@ -89,23 +103,18 @@ const displayAiDetails = (data) => {
                     <div class="w-full">
                       <h1 class="text-xl font-bold mt-5">Features</h1>
                       <ul class="card-body font-bold text-base">
-                        <li class="list-disc">${data.features[1] ? data.features[1].feature_name : "No Features"}
+                        <li class="list-disc">${data.features[1].feature_name ? data.features[1].feature_name : "No Features"}
                         <li>
-                        <li class="list-disc">${data.features[2] ? data.features[2].feature_name : "No Features"}
+                        <li class="list-disc">${data.features[2].feature_name ? data.features[2].feature_name : "No Features"}
                         <li>
-                        <li class="list-disc">${data.features[3] ? data.features[3].feature_name : "No Features"}
+                        <li class="list-disc">${data.features[3].feature_name ? data.features[3].feature_name : "No Features"}
                         <li>
                       </ul>
                     </div>
                     <div class="w-full">
                       <h1 class="text-xl font-bold mt-5">Integrations</h1>
                       <ul class="card-body font-bold text-xl">
-                        <li class="list-disc">${data.integrations[0] ? data.integrations[0] : "No Intergration"}
-                        <li>
-                        <li class="list-disc">${data.integrations[1] ? data.integrations[1] : "No Intergration"}
-                        <li>
-                        <li class="list-disc">${data.integrations[2] ? data.integrations[2] : "No Intergration"}
-                        <li>
+                      ${items ? items : 'No found data'}
                       </ul>
                     </div>
                   </div>
@@ -114,11 +123,14 @@ const displayAiDetails = (data) => {
   const aiBody2 = document.getElementById("ai-body-2")
   aiBody2.innerHTML = "";
   aiBody2.innerHTML += `
-    <figure id="modalPhoto"><img
-                    src="${data.image_link[0] ? data.image_link[0] : "No Image"}"
-                    alt="" /></figure>
-                <h1 class="text-xl font-bold text-center mt-3">${data.input_output_examples[0]? data.input_output_examples[0].input : "No Input"}</h1>
-                <p class="mt-3 text-center mb-3">${data.input_output_examples[0]? data.input_output_examples[0].output : "No Output"}</p>
+  <div>
+     <button class="${data.accuracy.score ? 'block' : 'hidden'} bg-red-500 p-2 rounded-md w-fit h-fit text-white text-base absolute border-3 top-0 right-0"><span>${data.accuracy.score * 100 + "% "}Accuracy</span></button>
+     <figure id="modalPhoto"><img src="${data.image_link[0] ? data.image_link[0] : "No Image"}" alt="" /></figure>
+  </div>
+                <div>
+                <h1 class="text-xl font-bold text-center mt-3">${data.input_output_examples[0] ? data.input_output_examples[0].input : "No Input"}</h1>
+                <p class="mt-3 text-center mb-3">${data.input_output_examples[0] ? data.input_output_examples[0].output : "No Output"}</p>
+                </div>
     `;
 }
 
